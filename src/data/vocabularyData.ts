@@ -1,3 +1,4 @@
+
 import { VocabularyItem } from '../types/vocabulary';
 
 export const vocabularyData: VocabularyItem[] = [
@@ -1208,7 +1209,7 @@ export const vocabularyData: VocabularyItem[] = [
     pashto: 'د موټر کارت',
     definition: {
       french: 'Document d\'immatriculation du véhicule',
-      dairy: 'سند ثبت وسیله نقلیه',
+      dari: 'سند ثبت وسیله نقلیه',
       pashto: 'د موټر د ثبت کولو سند'
     },
     category: 'Obligations légales',
