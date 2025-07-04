@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import FlashcardGame from '../components/FlashcardGame';
 import RoadSignMatchingGame from '../components/RoadSignMatchingGame';
+import VocabularyQuiz from '../components/VocabularyQuiz';
 import SentenceQuizGame from '../components/SentenceQuizGame';
 import QuizGame from '../components/QuizGame';
 import GameCard from '../components/GameCard';
@@ -38,11 +39,7 @@ const Games: React.FC = () => {
     },
     games: {
       flashcard: {
-        title: {
-          fr: 'Cartes Flash',
-          fa: 'کارت‌های فلش',
-          ps: 'فلش کارتونه'
-        },
+        title: { fr: 'Cartes Flash', fa: 'کارت‌های فلش', ps: 'فلش کارتونه' },
         description: {
           fr: 'Mémorisez le vocabulaire avec des cartes interactives',
           fa: 'واژگان را با کارت‌های تعاملی به خاطر بسپارید',
@@ -50,23 +47,23 @@ const Games: React.FC = () => {
         }
       },
       matching: {
-        title: {
-          fr: 'Association des Panneaux',
-          fa: 'تطبیق تابلوها',
-          ps: 'د نښو سمون'
-        },
+        title: { fr: 'Association des Panneaux', fa: 'تطبیق تابلوها', ps: 'د نښو سمون' },
         description: {
           fr: 'Associez les panneaux avec leurs traductions',
           fa: 'تابلوها را با ترجمه‌هایشان تطبیق دهید',
           ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
         }
       },
+      vocabulary: {
+        title: { fr: 'Quiz de Vocabulaire', fa: 'آزمون واژگان', ps: 'د لغتونو کویز' },
+        description: {
+          fr: 'Testez vos connaissances avec des questions aléatoires',
+          fa: 'دانش خود را با سوالات تصادفی بسنجید',
+          ps: 'خپل پوهه د تصادفي پوښتنو سره وازمایئ'
+        }
+      },
       sentence: {
-        title: {
-          fr: 'Phrase à Trou',
-          fa: 'جمله جای خالی',
-          ps: 'جمله تشه'
-        },
+        title: { fr: 'Phrase à Trou', fa: 'جمله جای خالی', ps: 'جمله تشه' },
         description: {
           fr: 'Trouvez le mot manquant dans la phrase',
           fa: 'کلمه گم شده را در جمله پیدا کنید',
@@ -74,11 +71,7 @@ const Games: React.FC = () => {
         }
       },
       quiz: {
-        title: {
-          fr: 'Quiz Code de la Route',
-          fa: 'آزمون قوانین رانندگی',
-          ps: 'د سړک قانون پوښتنې'
-        },
+        title: { fr: 'Quiz Code de la Route', fa: 'آزمون قوانین رانندگی', ps: 'د سړک قانون پوښتنې' },
         description: {
           fr: 'Répondez à des questions à choix multiples',
           fa: 'به سوالات چندگزینه‌ای پاسخ دهید',
@@ -98,35 +91,17 @@ const Games: React.FC = () => {
     return (
       <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
         <div className="container mx-auto px-4 py-8">
-          <div className="mb-6">
-            <Button onClick={() => setSelectedGame(null)} variant="outline" className="mb-4">
-              ← {translations.back[currentLanguage]}
-            </Button>
+          <Button onClick={() => setSelectedGame(null)} variant="outline" className="mb-4">
+            ← {translations.back[currentLanguage]}
+          </Button>
 
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold">
-                {translations.games[selectedGame as keyof typeof translations.games].title[currentLanguage]}
-              </h1>
-
-              <div className="flex items-center space-x-2">
-                <Globe className="h-4 w-4" />
-                <select
-                  value={currentLanguage}
-                  onChange={(e) => setCurrentLanguage(e.target.value as 'fr' | 'fa' | 'ps')}
-                  className="border rounded px-2 py-1 text-sm"
-                >
-                  {languageOptions.map(lang => (
-                    <option key={lang.code} value={lang.code}>
-                      {lang.flag} {lang.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
+          <h1 className="text-2xl font-bold mb-6">
+            {translations.games[selectedGame as keyof typeof translations.games].title[currentLanguage]}
+          </h1>
 
           {selectedGame === 'flashcard' && <FlashcardGame currentLanguage={currentLanguage} />}
           {selectedGame === 'matching' && <RoadSignMatchingGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'vocabulary' && <VocabularyQuiz currentLanguage={currentLanguage} />}
           {selectedGame === 'sentence' && <SentenceQuizGame currentLanguage={currentLanguage} />}
           {selectedGame === 'quiz' && <QuizGame currentLanguage={currentLanguage} />}
         </div>
@@ -137,7 +112,6 @@ const Games: React.FC = () => {
   return (
     <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <div className="text-center mb-12">
           <Trophy className="h-12 w-12 text-afghan-green mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -151,9 +125,7 @@ const Games: React.FC = () => {
         {/* Language Selector */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center space-x-4 bg-white rounded-lg p-2 shadow-sm">
-            <span className="text-sm font-medium text-gray-700">
-              {translations.language[currentLanguage]}:
-            </span>
+            <span className="text-sm font-medium text-gray-700">{translations.language[currentLanguage]}:</span>
             {languageOptions.map(lang => (
               <Button
                 key={lang.code}
@@ -192,6 +164,16 @@ const Games: React.FC = () => {
             icon={<Shuffle className="h-6 w-6" />}
           />
           <GameCard
+            title={translations.games.vocabulary.title[currentLanguage]}
+            description={translations.games.vocabulary.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('vocabulary')}
+            icon={<BookOpen className="h-6 w-6" />}
+          />
+          <GameCard
             title={translations.games.sentence.title[currentLanguage]}
             description={translations.games.sentence.description[currentLanguage]}
             difficulty="beginner"
@@ -202,4 +184,19 @@ const Games: React.FC = () => {
             icon={<FileText className="h-6 w-6" />}
           />
           <GameCard
-            title={translations.games
+            title={translations.games.quiz.title[currentLanguage]}
+            description={translations.games.quiz.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('quiz')}
+            icon={<HelpCircle className="h-6 w-6" />}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Games;
