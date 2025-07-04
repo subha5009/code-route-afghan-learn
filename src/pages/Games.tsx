@@ -40,29 +40,3 @@ const Games: React.FC = () => {
       ps: 'لوبو ته بیرته'
     },
     games: {
-      flashcard: {
-        title: { fr: 'Cartes Flash', fa: 'کارت‌های فلش', ps: 'فلش کارتونه' },
-        description: {
-          fr: 'Mémorisez le vocabulaire avec des cartes interactives',
-          fa: 'واژگان را با کارت‌های تعاملی به خاطر بسپارید',
-          ps: 'د تعاملي کارتونو سره کلیمې په یاد وساتئ'
-        }
-      },
-      matching: {
-        title: { fr: 'Association des Panneaux', fa: 'تطبیق تابلوها', ps: 'د نښو سمون' },
-        description: {
-          fr: 'Associez les panneaux avec leurs traductions',
-          fa: 'تابلوها را با ترجمه‌هایشان تطبیق دهید',
-          ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
-        }
-      },
-      proverb: {
-        title: { fr: 'Proverbes Afghans', fa: 'متل‌های افغانی', ps: 'د افغان متلونه' },
-        description: {
-          fr: 'Devinez la signification des proverbes traditionnels',
-          fa: 'معنای متل‌های افغانی را حدس بزنید',
-          ps: 'د افغان متلونو مانا پیدا کړئ'
-        }
-      },
-      quickquiz: {
-        title: { fr:
