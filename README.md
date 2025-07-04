@@ -36,6 +36,8 @@ npm i
 npm run dev
 ```
 
+`npm run dev` starts the server on `http://localhost:8080` as configured in `vite.config.ts`.
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
