@@ -54,7 +54,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-inter antialiased;
   }
 
   /* RTL Support for Dari and Pashto */
