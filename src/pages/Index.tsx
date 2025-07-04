@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import VocabularyCard from '../components/VocabularyCard';
 import GameCard from '../components/GameCard';
@@ -104,14 +105,15 @@ const Index = () => {
                    'خپل پوهه په چټکۍ سره وآزمویئ',
       difficulty: 'advanced' as const,
       players: 1,
-      isLocked: true,
+      isLocked: false,
       icon: <Play className="h-6 w-6" />
     }
   ];
 
+  const navigate = useNavigate();
+
   const handleGamePlay = (gameId: string) => {
-    console.log(`Starting game: ${gameId}`);
-    // Game logic will be implemented here
+    navigate('/games');
   };
 
   const unlockedVocabulary = vocabularyData.filter(item => item.isUnlocked);
