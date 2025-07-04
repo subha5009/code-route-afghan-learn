@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -6,8 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import FlashcardGame from '../components/FlashcardGame';
 import RoadSignMatchingGame from '../components/RoadSignMatchingGame';
 import VocabularyQuiz from '../components/VocabularyQuiz';
+import SentenceQuizGame from '../components/SentenceQuizGame';
+import QuizGame from '../components/QuizGame';
 import GameCard from '../components/GameCard';
-import { BookOpen, Shuffle, Trophy, Globe } from 'lucide-react';
+import { BookOpen, Shuffle, Trophy, Globe, FileText, HelpCircle } from 'lucide-react';
 
 const Games: React.FC = () => {
   const [currentLanguage, setCurrentLanguage] = useState<'fr' | 'fa' | 'ps'>('fr');
@@ -38,11 +39,7 @@ const Games: React.FC = () => {
     },
     games: {
       flashcard: {
-        title: {
-          fr: 'Cartes Flash',
-          fa: 'کارت‌های فلش',
-          ps: 'فلش کارتونه'
-        },
+        title: { fr: 'Cartes Flash', fa: 'کارت‌های فلش', ps: 'فلش کارتونه' },
         description: {
           fr: 'Mémorisez le vocabulaire avec des cartes interactives',
           fa: 'واژگان را با کارت‌های تعاملی به خاطر بسپارید',
@@ -50,27 +47,35 @@ const Games: React.FC = () => {
         }
       },
       matching: {
-        title: {
-          fr: 'Association des Panneaux',
-          fa: 'تطبیق تابلوها',
-          ps: 'د نښو سمون'
-        },
+        title: { fr: 'Association des Panneaux', fa: 'تطبیق تابلوها', ps: 'د نښو سمون' },
         description: {
           fr: 'Associez les panneaux avec leurs traductions',
           fa: 'تابلوها را با ترجمه‌هایشان تطبیق دهید',
           ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
         }
       },
-      quiz: {
-        title: {
-          fr: 'Quiz de Vocabulaire',
-          fa: 'آزمون واژگان',
-          ps: 'د لغتونو کویز'
-        },
+      vocabulary: {
+        title: { fr: 'Quiz de Vocabulaire', fa: 'آزمون واژگان', ps: 'د لغتونو کویز' },
         description: {
           fr: 'Testez vos connaissances avec des questions aléatoires',
           fa: 'دانش خود را با سوالات تصادفی بسنجید',
           ps: 'خپل پوهه د تصادفي پوښتنو سره وازمایئ'
+        }
+      },
+      sentence: {
+        title: { fr: 'Phrase à Trou', fa: 'جمله جای خالی', ps: 'جمله تشه' },
+        description: {
+          fr: 'Trouvez le mot manquant dans la phrase',
+          fa: 'کلمه گم شده را در جمله پیدا کنید',
+          ps: 'په جمله کې ورک شوی کلمه پیدا کړئ'
+        }
+      },
+      quiz: {
+        title: { fr: 'Quiz Code de la Route', fa: 'آزمون قوانین رانندگی', ps: 'د سړک قانون پوښتنې' },
+        description: {
+          fr: 'Répondez à des questions à choix multiples',
+          fa: 'به سوالات چندگزینه‌ای پاسخ دهید',
+          ps: 'د څو انتخابونو پوښتنو ته ځواب ورکړئ'
         }
       }
     }
@@ -86,50 +91,19 @@ const Games: React.FC = () => {
     return (
       <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
         <div className="container mx-auto px-4 py-8">
-          <div className="mb-6">
-            <Button
-              onClick={() => setSelectedGame(null)}
-              variant="outline"
-              className="mb-4"
-            >
-              ← {translations.back[currentLanguage]}
-            </Button>
-            
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold">
-                {selectedGame === 'flashcard' && translations.games.flashcard.title[currentLanguage]}
-                {selectedGame === 'matching' && translations.games.matching.title[currentLanguage]}
-                {selectedGame === 'quiz' && translations.games.quiz.title[currentLanguage]}
-              </h1>
-              
-              <div className="flex items-center space-x-2">
-                <Globe className="h-4 w-4" />
-                <select
-                  value={currentLanguage}
-                  onChange={(e) => setCurrentLanguage(e.target.value as 'fr' | 'fa' | 'ps')}
-                  className="border rounded px-2 py-1 text-sm"
-                >
-                  {languageOptions.map(lang => (
-                    <option key={lang.code} value={lang.code}>
-                      {lang.flag} {lang.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-          
-          {selectedGame === 'flashcard' && (
-            <FlashcardGame currentLanguage={currentLanguage} />
-          )}
+          <Button onClick={() => setSelectedGame(null)} variant="outline" className="mb-4">
+            ← {translations.back[currentLanguage]}
+          </Button>
 
-          {selectedGame === 'matching' && (
-            <RoadSignMatchingGame currentLanguage={currentLanguage} />
-          )}
+          <h1 className="text-2xl font-bold mb-6">
+            {translations.games[selectedGame as keyof typeof translations.games].title[currentLanguage]}
+          </h1>
 
-          {selectedGame === 'quiz' && (
-            <VocabularyQuiz currentLanguage={currentLanguage} />
-          )}
+          {selectedGame === 'flashcard' && <FlashcardGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'matching' && <RoadSignMatchingGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'vocabulary' && <VocabularyQuiz currentLanguage={currentLanguage} />}
+          {selectedGame === 'sentence' && <SentenceQuizGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'quiz' && <QuizGame currentLanguage={currentLanguage} />}
         </div>
       </div>
     );
@@ -138,11 +112,8 @@ const Games: React.FC = () => {
   return (
     <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex justify-center mb-4">
-            <Trophy className="h-12 w-12 text-afghan-green" />
-          </div>
+          <Trophy className="h-12 w-12 text-afghan-green mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             {translations.title[currentLanguage]}
           </h1>
@@ -154,9 +125,7 @@ const Games: React.FC = () => {
         {/* Language Selector */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center space-x-4 bg-white rounded-lg p-2 shadow-sm">
-            <span className="text-sm font-medium text-gray-700">
-              {translations.language[currentLanguage]}:
-            </span>
+            <span className="text-sm font-medium text-gray-700">{translations.language[currentLanguage]}:</span>
             {languageOptions.map(lang => (
               <Button
                 key={lang.code}
@@ -173,7 +142,7 @@ const Games: React.FC = () => {
         </div>
 
         {/* Games Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <GameCard
             title={translations.games.flashcard.title[currentLanguage]}
             description={translations.games.flashcard.description[currentLanguage]}
@@ -184,7 +153,6 @@ const Games: React.FC = () => {
             onPlay={() => setSelectedGame('flashcard')}
             icon={<BookOpen className="h-6 w-6" />}
           />
-          
           <GameCard
             title={translations.games.matching.title[currentLanguage]}
             description={translations.games.matching.description[currentLanguage]}
@@ -192,71 +160,39 @@ const Games: React.FC = () => {
             players={1}
             isLocked={false}
             currentLanguage={currentLanguage}
-          onPlay={() => setSelectedGame('matching')}
-          icon={<Shuffle className="h-6 w-6" />}
-        />
-
-        <GameCard
-          title={translations.games.quiz.title[currentLanguage]}
-          description={translations.games.quiz.description[currentLanguage]}
-          difficulty="beginner"
-          players={1}
-          isLocked={false}
-          currentLanguage={currentLanguage}
-          onPlay={() => setSelectedGame('quiz')}
-          icon={<BookOpen className="h-6 w-6" />}
-        />
-      </div>
-
-        {/* Features */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="p-6">
-            <div className="w-12 h-12 bg-afghan-green/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="h-6 w-6 text-afghan-green" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {currentLanguage === 'fr' && 'Apprentissage Interactif'}
-              {currentLanguage === 'fa' && 'یادگیری تعاملی'}
-              {currentLanguage === 'ps' && 'تعاملي زده کړه'}
-            </h3>
-            <p className="text-gray-600 text-sm">
-              {currentLanguage === 'fr' && 'Apprenez avec des jeux engageants et amusants'}
-              {currentLanguage === 'fa' && 'با بازی‌های جذاب و سرگرم‌کننده یاد بگیرید'}
-              {currentLanguage === 'ps' && 'د زړه راښکونکو او خوښونکو لوبو سره زده کړئ'}
-            </p>
-          </div>
-          
-          <div className="p-6">
-            <div className="w-12 h-12 bg-afghan-blue/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Globe className="h-6 w-6 text-afghan-blue" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {currentLanguage === 'fr' && 'Multilingue'}
-              {currentLanguage === 'fa' && 'چند زبانه'}
-              {currentLanguage === 'ps' && 'څانګه ژبنی'}
-            </h3>
-            <p className="text-gray-600 text-sm">
-              {currentLanguage === 'fr' && 'Disponible en français, dari et pashto'}
-              {currentLanguage === 'fa' && 'به زبان‌های فرانسوی، دری و پشتو موجود'}
-              {currentLanguage === 'ps' && 'په فرانسوي، دري او پښتو ژبو کې شتون لري'}
-            </p>
-          </div>
-          
-          <div className="p-6">
-            <div className="w-12 h-12 bg-afghan-brown/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Trophy className="h-6 w-6 text-afghan-brown" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {currentLanguage === 'fr' && 'Suivi des Progrès'}
-              {currentLanguage === 'fa' && 'پیگیری پیشرفت'}
-              {currentLanguage === 'ps' && 'د پرمختګ تعقیب'}
-            </h3>
-            <p className="text-gray-600 text-sm">
-              {currentLanguage === 'fr' && 'Suivez vos scores et débloquez de nouveaux niveaux'}
-              {currentLanguage === 'fa' && 'نمرات خود را دنبال کنید و سطوح جدید را باز کنید'}
-              {currentLanguage === 'ps' && 'خپل پوائنټونه تعقیب کړئ او نوي کچه پرانیزئ'}
-            </p>
-          </div>
+            onPlay={() => setSelectedGame('matching')}
+            icon={<Shuffle className="h-6 w-6" />}
+          />
+          <GameCard
+            title={translations.games.vocabulary.title[currentLanguage]}
+            description={translations.games.vocabulary.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('vocabulary')}
+            icon={<BookOpen className="h-6 w-6" />}
+          />
+          <GameCard
+            title={translations.games.sentence.title[currentLanguage]}
+            description={translations.games.sentence.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('sentence')}
+            icon={<FileText className="h-6 w-6" />}
+          />
+          <GameCard
+            title={translations.games.quiz.title[currentLanguage]}
+            description={translations.games.quiz.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('quiz')}
+            icon={<HelpCircle className="h-6 w-6" />}
+          />
         </div>
       </div>
     </div>
