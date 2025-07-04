@@ -206,7 +206,7 @@ const Games: React.FC = () => {
             <h3 className="font-semibold mb-2">
               {currentLanguage === 'fr' && 'Multilingue'}
               {currentLanguage === 'fa' && 'چند زبانه'}
-              {currentLanguage === 'ps' && 'څانګه ژبنی'}
+              {currentLanguage === 'ps' && 'څو ژبني'}
             </h3>
             <p className="text-gray-600 text-sm">
               {currentLanguage === 'fr' && 'Disponible en français, dari et pashto'}
