@@ -1,6 +1,6 @@
 
 import { Home, BookOpen, Gamepad2, Video, ClipboardCheck } from "lucide-react";
-import Index from "./pages/Index.jsx";
+import Index from "./pages/Index";
 import Games from "./pages/Games";
 import Videos from "./pages/Videos";
 import Exam from "./pages/Exam";
