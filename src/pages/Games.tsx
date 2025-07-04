@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import FlashcardGame from '../components/FlashcardGame';
 import RoadSignMatchingGame from '../components/RoadSignMatchingGame';
+import ProverbQuizGame from '../components/ProverbQuizGame';
 import QuickQuizGame from '../components/QuickQuizGame';
 import VocabularyQuiz from '../components/VocabularyQuiz';
 import SentenceQuizGame from '../components/SentenceQuizGame';
@@ -55,6 +56,14 @@ const Games: React.FC = () => {
           ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
         }
       },
+      proverb: {
+        title: { fr: 'Proverbes Afghans', fa: 'متل‌های افغانی', ps: 'د افغان متلونه' },
+        description: {
+          fr: 'Devinez la signification des proverbes traditionnels',
+          fa: 'معنای متل‌های افغانی را حدس بزنید',
+          ps: 'د افغان متلونو مانا پیدا کړئ'
+        }
+      },
       quickquiz: {
         title: { fr: 'Quiz Rapide', fa: 'آزمون سریع', ps: 'ګړندي پوښتنې' },
         description: {
@@ -92,4 +101,38 @@ const Games: React.FC = () => {
 
   const languageOptions = [
     { code: 'fr' as const, name: 'Français', flag: '🇫🇷' },
-    { code:
+    { code: 'fa' as const, name: 'دری', flag: '🇦🇫' },
+    { code: 'ps' as const, name: 'پښتو', flag: '🇦🇫' }
+  ];
+
+  if (selectedGame) {
+    return (
+      <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
+        <div className="container mx-auto px-4 py-8">
+          <Button onClick={() => setSelectedGame(null)} variant="outline" className="mb-4">
+            ← {translations.back[currentLanguage]}
+          </Button>
+
+          <h1 className="text-2xl font-bold mb-6">
+            {translations.games[selectedGame as keyof typeof translations.games].title[currentLanguage]}
+          </h1>
+
+          {selectedGame === 'flashcard' && <FlashcardGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'matching' && <RoadSignMatchingGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'proverb' && <ProverbQuizGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'quickquiz' && <QuickQuizGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'vocabulary' && <VocabularyQuiz currentLanguage={currentLanguage} />}
+          {selectedGame === 'sentence' && <SentenceQuizGame currentLanguage={currentLanguage} />}
+          {selectedGame === 'quiz' && <QuizGame currentLanguage={currentLanguage} />}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen bg-gradient-to-br from-warm-sand to-white ${isRTL ? 'rtl' : 'ltr'}`}>
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <Trophy className="h-12 w-12 text-afghan-green mx-auto mb-4" />
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            {translations.title[currentLanguage]
