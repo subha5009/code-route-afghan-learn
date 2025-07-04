@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import FlashcardGame from '../components/FlashcardGame';
 import RoadSignMatchingGame from '../components/RoadSignMatchingGame';
+import VocabularyQuiz from '../components/VocabularyQuiz';
 import GameCard from '../components/GameCard';
 import { BookOpen, Shuffle, Trophy, Globe } from 'lucide-react';
 
@@ -59,6 +60,18 @@ const Games: React.FC = () => {
           fa: 'تابلوها را با ترجمه‌هایشان تطبیق دهید',
           ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
         }
+      },
+      quiz: {
+        title: {
+          fr: 'Quiz de Vocabulaire',
+          fa: 'آزمون واژگان',
+          ps: 'د لغتونو کویز'
+        },
+        description: {
+          fr: 'Testez vos connaissances avec des questions aléatoires',
+          fa: 'دانش خود را با سوالات تصادفی بسنجید',
+          ps: 'خپل پوهه د تصادفي پوښتنو سره وازمایئ'
+        }
       }
     }
   };
@@ -84,10 +97,9 @@ const Games: React.FC = () => {
             
             <div className="flex items-center justify-between">
               <h1 className="text-2xl font-bold">
-                {selectedGame === 'flashcard' 
-                  ? translations.games.flashcard.title[currentLanguage]
-                  : translations.games.matching.title[currentLanguage]
-                }
+                {selectedGame === 'flashcard' && translations.games.flashcard.title[currentLanguage]}
+                {selectedGame === 'matching' && translations.games.matching.title[currentLanguage]}
+                {selectedGame === 'quiz' && translations.games.quiz.title[currentLanguage]}
               </h1>
               
               <div className="flex items-center space-x-2">
@@ -110,9 +122,13 @@ const Games: React.FC = () => {
           {selectedGame === 'flashcard' && (
             <FlashcardGame currentLanguage={currentLanguage} />
           )}
-          
+
           {selectedGame === 'matching' && (
             <RoadSignMatchingGame currentLanguage={currentLanguage} />
+          )}
+
+          {selectedGame === 'quiz' && (
+            <VocabularyQuiz currentLanguage={currentLanguage} />
           )}
         </div>
       </div>
@@ -157,7 +173,7 @@ const Games: React.FC = () => {
         </div>
 
         {/* Games Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <GameCard
             title={translations.games.flashcard.title[currentLanguage]}
             description={translations.games.flashcard.description[currentLanguage]}
@@ -176,10 +192,21 @@ const Games: React.FC = () => {
             players={1}
             isLocked={false}
             currentLanguage={currentLanguage}
-            onPlay={() => setSelectedGame('matching')}
-            icon={<Shuffle className="h-6 w-6" />}
-          />
-        </div>
+          onPlay={() => setSelectedGame('matching')}
+          icon={<Shuffle className="h-6 w-6" />}
+        />
+
+        <GameCard
+          title={translations.games.quiz.title[currentLanguage]}
+          description={translations.games.quiz.description[currentLanguage]}
+          difficulty="beginner"
+          players={1}
+          isLocked={false}
+          currentLanguage={currentLanguage}
+          onPlay={() => setSelectedGame('quiz')}
+          icon={<BookOpen className="h-6 w-6" />}
+        />
+      </div>
 
         {/* Features */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
