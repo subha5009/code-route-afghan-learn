@@ -1,6 +1,7 @@
 
 import { HomeIcon, BookOpenIcon, GamepadIcon } from "lucide-react";
-import Index from "./pages/Index.jsx";
+// Corrected path to the Index page component
+import Index from "./pages/Index";
 import Games from "./pages/Games";
 
 /**
