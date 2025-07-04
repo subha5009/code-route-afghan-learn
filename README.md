@@ -71,3 +71,8 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Learn Code de la Route in Dari and Pashto
+
+For Afghan learners, a short guide to the French Code de la Route is available in Dari and Pashto. See [docs/code-de-la-route-dari-pashto.md](docs/code-de-la-route-dari-pashto.md) for an overview of key rules and common road signs.
+
