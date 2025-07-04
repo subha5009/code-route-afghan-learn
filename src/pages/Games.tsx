@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import FlashcardGame from '../components/FlashcardGame';
 import RoadSignMatchingGame from '../components/RoadSignMatchingGame';
+import ProverbQuizGame from '../components/ProverbQuizGame';
 import GameCard from '../components/GameCard';
 import { BookOpen, Shuffle, Trophy, Globe } from 'lucide-react';
 
@@ -59,6 +60,18 @@ const Games: React.FC = () => {
           fa: 'تابلوها را با ترجمه‌هایشان تطبیق دهید',
           ps: 'نښې د دوی د ژباړو سره سمون ورکړئ'
         }
+      },
+      proverb: {
+        title: {
+          fr: 'Proverbes Afghans',
+          fa: 'متل‌های افغانی',
+          ps: 'د افغان متلونه'
+        },
+        description: {
+          fr: 'Devinez la signification des proverbes traditionnels',
+          fa: 'معنای متل‌های افغانی را حدس بزنید',
+          ps: 'د افغان متلونو مانا پیدا کړئ'
+        }
       }
     }
   };
@@ -84,10 +97,12 @@ const Games: React.FC = () => {
             
             <div className="flex items-center justify-between">
               <h1 className="text-2xl font-bold">
-                {selectedGame === 'flashcard' 
-                  ? translations.games.flashcard.title[currentLanguage]
-                  : translations.games.matching.title[currentLanguage]
-                }
+                {selectedGame === 'flashcard' &&
+                  translations.games.flashcard.title[currentLanguage]}
+                {selectedGame === 'matching' &&
+                  translations.games.matching.title[currentLanguage]}
+                {selectedGame === 'proverb' &&
+                  translations.games.proverb.title[currentLanguage]}
               </h1>
               
               <div className="flex items-center space-x-2">
@@ -110,9 +125,13 @@ const Games: React.FC = () => {
           {selectedGame === 'flashcard' && (
             <FlashcardGame currentLanguage={currentLanguage} />
           )}
-          
+
           {selectedGame === 'matching' && (
             <RoadSignMatchingGame currentLanguage={currentLanguage} />
+          )}
+
+          {selectedGame === 'proverb' && (
+            <ProverbQuizGame currentLanguage={currentLanguage} />
           )}
         </div>
       </div>
@@ -168,7 +187,7 @@ const Games: React.FC = () => {
             onPlay={() => setSelectedGame('flashcard')}
             icon={<BookOpen className="h-6 w-6" />}
           />
-          
+
           <GameCard
             title={translations.games.matching.title[currentLanguage]}
             description={translations.games.matching.description[currentLanguage]}
@@ -178,6 +197,17 @@ const Games: React.FC = () => {
             currentLanguage={currentLanguage}
             onPlay={() => setSelectedGame('matching')}
             icon={<Shuffle className="h-6 w-6" />}
+          />
+
+          <GameCard
+            title={translations.games.proverb.title[currentLanguage]}
+            description={translations.games.proverb.description[currentLanguage]}
+            difficulty="beginner"
+            players={1}
+            isLocked={false}
+            currentLanguage={currentLanguage}
+            onPlay={() => setSelectedGame('proverb')}
+            icon={<BookOpen className="h-6 w-6" />}
           />
         </div>
 
